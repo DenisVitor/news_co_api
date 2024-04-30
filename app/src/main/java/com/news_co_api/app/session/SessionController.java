@@ -58,12 +58,13 @@ public class SessionController {
         return ResponseEntity.status(201).body(viewer);
     }
 
-      @PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody ViewerEntity payload) {
         var authToken = new UsernamePasswordAuthenticationToken(
                 payload.getUsername(), payload.getPassword());
 
         var authentication = authenticationManager.authenticate(authToken);
+
         var token = jwtTokenProvider.createToken(authentication);
 
         var msg = new HashMap<String, String>();

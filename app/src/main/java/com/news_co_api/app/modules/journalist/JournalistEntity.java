@@ -9,6 +9,9 @@ import com.news_co_api.app.modules.news.NewsEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,6 +28,7 @@ public class JournalistEntity {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
@@ -34,6 +38,6 @@ public class JournalistEntity {
     @Column(length = 1000)
     private String avatar;
 
-    @OneToMany(mappedBy = "journalist_related", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "journalist_related", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<NewsEntity> news_related;
 }

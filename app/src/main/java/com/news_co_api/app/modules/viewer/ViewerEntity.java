@@ -15,6 +15,7 @@ import com.news_co_api.app.modules.reviews.ReviewEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -66,7 +67,7 @@ public class ViewerEntity implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "viewer_posted", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "viewer_posted", cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
     private List<ReviewEntity> news_related;
 
     @Column

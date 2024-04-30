@@ -23,6 +23,7 @@ public class ViewerService {
         return viewerRepo.findById(id).orElseThrow();
     }
 
+    @SuppressWarnings("null")
     public ViewerEntity updateViewer(UUID id, ViewerDTO payload) {
         ViewerEntity viewerToUpdate = viewerRepo.findById(id).orElseThrow();
         if (viewerToUpdate != null) {

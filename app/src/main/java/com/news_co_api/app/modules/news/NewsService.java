@@ -27,6 +27,7 @@ public class NewsService {
         return newsRepo.save(modMap.map(payload, NewsEntity.class));
     }
 
+    @SuppressWarnings("null")
     public NewsEntity updateNews(UUID id, NewsDTO payload) {
         NewsEntity newsToUpdate = newsRepo.findById(id).orElseThrow();
         if (newsToUpdate != null) {

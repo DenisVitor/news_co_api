@@ -34,9 +34,6 @@ public class SessionConfig {
                 var user = userDetailsService.loadUserByUsername(username);
                 var samePassword = encoder.matches(password, user.getPassword());
 
-                if (!user.getPassword().equals(password)) {
-                    throw new BadCredentialsException("Invalid username/password supplied");
-                }
                 if (!samePassword) {
                     throw new BadCredentialsException("Invalid username/password supplied");
                 }
@@ -44,6 +41,7 @@ public class SessionConfig {
                 if (!user.isEnabled()) {
                     throw new DisabledException("Viewer account is not active");
                 }
+         
 
                 return new UsernamePasswordAuthenticationToken(
                         username, null, user.getAuthorities());

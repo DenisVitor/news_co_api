@@ -27,6 +27,7 @@ public class JournalistService {
         return journoRepo.save(modMap.map(payload, JournalistEntity.class));
     }
 
+    @SuppressWarnings("null")
     public JournalistEntity updateJourno(UUID id, JournalistDTO payload) {
         JournalistEntity journoToUpdate = journoRepo.findById(id).orElseThrow();
         if (journoToUpdate != null) {

@@ -5,7 +5,16 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.news_co_api.app.modules.news.NewsEntity;
+import com.news_co_api.app.modules.news.NewsRepository;
+import com.news_co_api.app.modules.viewer.ViewerEntity;
+import com.news_co_api.app.modules.viewer.ViewerRepository;
 
 @Service
 public class ReviewService {
@@ -15,6 +24,12 @@ public class ReviewService {
     @Autowired
     private ModelMapper modMap;
 
+    @Autowired
+    private ViewerRepository viewerRepo;
+
+    @Autowired
+    private NewsRepository newsRepo;
+
     public List<ReviewEntity> getAll() {
         return reviewRepo.findAll();
     }
@@ -23,10 +38,22 @@ public class ReviewService {
         return reviewRepo.findById(id).orElseThrow();
     }
 
+    @Transactional
     public ReviewEntity createReview(ReviewDTO payload) {
-        return reviewRepo.save(modMap.map(payload, ReviewEntity.class));
+        ReviewEntity review = modMap.map(payload, ReviewEntity.class);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+            ViewerEntity viewer = viewerRepo.findByUsername(username).orElseThrow();
+            review.setViewer_posted(viewer);
+        }
+        NewsEntity news = newsRepo.findById(payload.getNews_related()).orElseThrow();
+        review.setNews_related(news);
+        return reviewRepo.save(review);
     }
 
+    @SuppressWarnings("null")
     public ReviewEntity updateReview(UUID id, ReviewDTO payload) {
         ReviewEntity reviewToUpdate = reviewRepo.findById(id).orElseThrow();
         if (reviewToUpdate != null) {
