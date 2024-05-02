@@ -1,8 +1,8 @@
 FROM ubuntu:latest AS build
 
-RUN apt-get update
 RUN apt-get install software-properties-common -y
 RUN sudo add-apt-repository ppa:openjdk-r/ppa -y
+RUN apt-get update
 RUN sudo apt-get install -y default-jre
 RUN apt-get install openjdk-22-jdk -y
 COPY . .
