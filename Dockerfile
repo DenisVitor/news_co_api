@@ -1,6 +1,5 @@
 FROM ubuntu:latest AS build
 
-RUN add-apt-repository ppa:pushkarnk/jdk22
 RUN apt update
 RUN apt-get install software-properties-common -y
 RUN apt-get install -y default-jre
