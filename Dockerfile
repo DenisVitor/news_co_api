@@ -9,7 +9,7 @@ RUN mvn clean install -DskipTests
 
 FROM openjdk:17-jdk-slim
 
-EXPOSE 8000
+EXPOSE 8080
 
 COPY --from=build /target/news_co_api-0.0.1-SNAPSHOT.jar app.jar
 
