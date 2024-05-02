@@ -12,7 +12,6 @@
 	<groupId>com.news_co_api</groupId>
 	<artifactId>news_co_api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>news_co_api</name>
 	<description>One more time</description>
 	<properties>
@@ -83,6 +82,7 @@
 			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
