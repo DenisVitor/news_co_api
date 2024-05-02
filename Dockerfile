@@ -1,5 +1,6 @@
 FROM ubuntu:latest AS build
 
+RUN apt-get install software-properties-common
 RUN sudo add-apt-repository ppa:openjdk-r/ppa
 RUN sudo apt-get install -y default-jre
 RUN apt-get update
