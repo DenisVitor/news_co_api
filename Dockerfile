@@ -2,8 +2,8 @@ FROM ubuntu:latest AS build
 
 RUN apt update
 RUN apt-get install software-properties-common -y
-RUN apt-get install -y default-jre
-RUN apt-get install openjdk-22-jdk -y
+RUN apt-get install default-jre -y
+RUN apt install default-jdk -y
 COPY . .
 
 RUN apt-get install maven -y
