@@ -39,6 +39,10 @@ public class NewsEntity {
     @JsonView(ReturnList.NewsList.class)
     @Column(nullable = false)
     private String subtitle;
+
+    @JsonView(ReturnList.NewsList.class)
+    @Column(nullable = true)
+    private String image;
     
     @JsonView(ReturnList.NewsList.class)
     @Enumerated(EnumType.STRING)

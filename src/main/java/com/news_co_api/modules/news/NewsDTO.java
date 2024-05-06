@@ -15,6 +15,8 @@ public class NewsDTO {
 
     private String subtitle;
 
+    private String image;
+
     private UUID journalist_related;
 
     public String getContent() {
@@ -63,5 +65,13 @@ public class NewsDTO {
 
     public void setJournalist_related(UUID journalist_related) {
         this.journalist_related = journalist_related;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
