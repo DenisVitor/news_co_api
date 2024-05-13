@@ -46,7 +46,7 @@ public class JournalistEntity {
     @Column(length = 1000)
     private String avatar;
 
-    @JsonIgnoreProperties({ "journalist_related" })
+    @JsonIgnoreProperties({ "journalist_related", "reviews_related", "content" })
     @OneToMany(mappedBy = "journalist_related", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<NewsEntity> news_related;
 }
