@@ -3,6 +3,7 @@ package com.news_co_api.session;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,8 +35,9 @@ public class SessionController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody ViewerEntity payload) {
-        ViewerEntity foundViewer = viewerRepo.findByUsername(payload.getUsername()).orElseThrow();
+        ViewerEntity foundViewer = viewerRepo.findByUsername(payload.getUsername()).orElse(null);
         if (foundViewer != null) {
+            System.out.println(foundViewer);
             var message = new HashMap<String, String>();
             message.put("error", "Viewer with this username already exists");
             return ResponseEntity.badRequest().body(message);
