@@ -19,6 +19,7 @@ public class SecurityConfig {
         var tokenFilter = new JwtTokenAuthenticationFilter(tokenProvider);
         return http.httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         a -> a.requestMatchers(HttpMethod.GET, "/news").permitAll()
