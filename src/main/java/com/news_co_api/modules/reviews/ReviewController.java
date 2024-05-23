@@ -23,9 +23,9 @@ public class ReviewController {
     @Autowired
     public ReviewService reviewServ;
 
-    @GetMapping
-    public ResponseEntity<?> returnAllReviews() {
-        return ResponseEntity.ok().body(reviewServ.getAll());
+    @PostMapping("/data")
+    public ResponseEntity<?> returnByNewsAndUser(@RequestBody ReviewNewsUser payload) {
+        return ResponseEntity.ok().body(reviewServ.getByIds(payload.getViewer_posted(), payload.getNews_related()));
     }
 
     @GetMapping("/{id}")
@@ -35,7 +35,7 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<?> returnCreateEntity(@RequestBody ReviewDTO payload) {
-       
+
         return ResponseEntity.status(201).body(reviewServ.createReview(payload));
     }
 

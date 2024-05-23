@@ -1,6 +1,5 @@
 package com.news_co_api.modules.reviews;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -30,8 +29,8 @@ public class ReviewService {
     @Autowired
     private NewsRepository newsRepo;
 
-    public List<ReviewEntity> getAll() {
-        return reviewRepo.findAll();
+    public ReviewEntity getByIds(UUID viewerId, UUID newsId) {
+        return reviewRepo.findByViewerAndByNews(viewerId, newsId).orElseThrow();
     }
 
     public ReviewEntity getReview(UUID id) {
