@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,13 +21,13 @@ public class ViewerController {
     @Autowired
     private ViewerService viewerServ;
 
-    @GetMapping
-    public ResponseEntity<?> returnViewer() {
+    @GetMapping("/token")
+    public ResponseEntity<?> returnViewer() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            ViewerEntity viewer = (ViewerEntity) authentication.getPrincipal();
-            UUID viewerId = viewer.getId();
-            return ResponseEntity.ok().body(viewerServ.getViewer(viewerId));
+            User viewer = (User) authentication.getPrincipal();
+            String viewerName = viewer.getUsername();
+            return ResponseEntity.ok().body(viewerServ.getByToken(viewerName));
         }
         var errorMsg = new HashMap<String, String>();
         errorMsg.put("error", "viewer not logged");

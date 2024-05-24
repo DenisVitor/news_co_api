@@ -34,6 +34,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/reviews").hasAnyRole("ADMIN", "COMMON")
+                                .requestMatchers(HttpMethod.GET, "/viewers/token").hasAnyRole("ADMIN", "COMMON")
+                                .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("ADMIN", "COMMON")
                                 .requestMatchers(HttpMethod.PATCH, "/reviews").hasAnyRole("ADMIN", "COMMON")
                                 .requestMatchers(HttpMethod.DELETE, "/reviews").hasAnyRole("ADMIN", "COMMON")
                                 .requestMatchers(HttpMethod.POST, "/viewers/**").hasAnyRole("ADMIN", "COMMON")

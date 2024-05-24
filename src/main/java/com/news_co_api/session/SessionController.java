@@ -2,11 +2,12 @@ package com.news_co_api.session;
 
 import java.util.Arrays;
 import java.util.HashMap;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,7 +62,19 @@ public class SessionController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody ViewerEntity payload) {
+    public ResponseEntity<?> login(@RequestBody ViewerEntity payload) throws Exception {
+        var errorMsg = new HashMap<String, String>();
+        errorMsg.put("Error", "Username/Password are incorrect");
+        Optional<ViewerEntity> viewer = viewerRepo.findByUsername(payload.getUsername());
+        if (!viewer.isPresent()) {
+            return ResponseEntity.status(400).body(errorMsg);
+        }
+        var samePassword = encoder.matches(payload.getPassword(), payload.getPassword());
+        if (!samePassword) {
+            return ResponseEntity.status(400).body(errorMsg);
+
+        }
+
         var authToken = new UsernamePasswordAuthenticationToken(
                 payload.getUsername(), payload.getPassword());
 

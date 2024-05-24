@@ -15,6 +15,10 @@ public class ViewerService {
     @Autowired
     private PasswordEncoder encoder;
 
+    public UUID getByToken(String username) throws Exception {
+        return viewerRepo.findByUsername(username).orElseThrow().getId();
+    }
+
     public List<ViewerEntity> getAllViewers() {
         return viewerRepo.findAll();
     }
