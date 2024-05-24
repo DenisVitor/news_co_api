@@ -66,10 +66,10 @@ public class SessionController {
         var errorMsg = new HashMap<String, String>();
         errorMsg.put("Error", "Username/Password are incorrect");
         Optional<ViewerEntity> viewer = viewerRepo.findByUsername(payload.getUsername());
-        if (!viewer.isPresent()) {
+        if (viewer.isPresent() == false) {
             return ResponseEntity.status(400).body(errorMsg);
         }
-        var samePassword = encoder.matches(payload.getPassword(), payload.getPassword());
+        var samePassword = encoder.matches(payload.getPassword(), viewer.get().getPassword());
         if (!samePassword) {
             return ResponseEntity.status(400).body(errorMsg);
 
