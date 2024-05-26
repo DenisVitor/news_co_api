@@ -31,7 +31,7 @@ public class ReviewEntity {
     private ViewerEntity viewer_posted;
 
     @ManyToOne
-    @JsonIgnoreProperties({ "reviews_related" })
+    @JsonIgnoreProperties({ "reviews_related", "journalist_related" })
     @JoinColumn(name = "news_related")
     private NewsEntity news_related;
 }

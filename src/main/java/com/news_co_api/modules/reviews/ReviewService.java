@@ -30,7 +30,9 @@ public class ReviewService {
     private NewsRepository newsRepo;
 
     public ReviewEntity getByIds(UUID viewerId, UUID newsId) {
-        return reviewRepo.findByViewerAndByNews(viewerId, newsId).orElseThrow();
+        ViewerEntity viewer = viewerRepo.findById(viewerId).orElseThrow();
+        NewsEntity news = newsRepo.findById(newsId).orElseThrow();
+        return reviewRepo.findByViewerAndByNews(viewer.getId(), news.getId()).orElseThrow();
     }
 
     public ReviewEntity getReview(UUID id) {
