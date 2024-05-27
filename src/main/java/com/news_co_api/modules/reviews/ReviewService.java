@@ -29,10 +29,8 @@ public class ReviewService {
     @Autowired
     private NewsRepository newsRepo;
 
-    public ReviewEntity getByIds(UUID viewerId, UUID newsId) {
-        ViewerEntity viewer = viewerRepo.findById(viewerId).orElseThrow();
-        NewsEntity news = newsRepo.findById(newsId).orElseThrow();
-        return reviewRepo.findByViewerAndByNews(viewer.getId(), news.getId()).orElseThrow();
+    public UUID getByIds(UUID viewerId, UUID newsId) {
+        return reviewRepo.findByViewerAndByNews(viewerId, newsId).orElseThrow();
     }
 
     public ReviewEntity getReview(UUID id) {
