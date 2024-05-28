@@ -3,11 +3,14 @@ package com.news_co_api.modules.reviews;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.news_co_api.context.ReturnList;
 import com.news_co_api.modules.news.NewsEntity;
 import com.news_co_api.modules.viewer.ViewerEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,17 +23,19 @@ import lombok.Data;
 public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(ReturnList.ReviewReturn.class)
     private UUID id;
 
-    @Column
+    @JsonView(ReturnList.ReviewReturn.class)
+    @Column(nullable = false)
     private String review;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "reviews_posted" })
     @JoinColumn(name = "viewer_posted")
     private ViewerEntity viewer_posted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "reviews_related", "journalist_related" })
     @JoinColumn(name = "news_related")
     private NewsEntity news_related;

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,20 +53,23 @@ public class ReviewService {
         return reviewRepo.save(review);
     }
 
-    @SuppressWarnings("null")
     public ReviewEntity updateReview(UUID id, ReviewDTO payload) {
         ReviewEntity reviewToUpdate = reviewRepo.findById(id).orElseThrow();
         if (reviewToUpdate != null) {
             if (payload.getReview() != null) {
                 reviewToUpdate.setReview(payload.getReview());
             }
+            return reviewRepo.save(reviewToUpdate);
         }
-        return reviewRepo.save(reviewToUpdate);
+        return reviewToUpdate;
     }
 
-    public void deleteReview(UUID id) {
+    public void deleteReview(UUID id) throws NotFoundException {
+        
         if (reviewRepo.existsById(id)) {
             reviewRepo.deleteById(id);
+        } else {
+            throw new NotFoundException();
         }
     }
 }
