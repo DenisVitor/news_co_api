@@ -35,7 +35,7 @@ public class NewsEntity {
     @JsonView(ReturnList.NewsList.class)
     @Column(nullable = false)
     private String title;
-    
+
     @JsonView(ReturnList.NewsList.class)
     @Column(nullable = false)
     private String subtitle;
@@ -43,7 +43,7 @@ public class NewsEntity {
     @JsonView(ReturnList.NewsList.class)
     @Column(nullable = true)
     private String image;
-    
+
     @JsonView(ReturnList.NewsList.class)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -58,6 +58,6 @@ public class NewsEntity {
     private JournalistEntity journalist_related;
 
     @JsonIgnoreProperties({ "news_related" })
-    @OneToMany(mappedBy = "news_related", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "news_related", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ReviewEntity> reviews_related;
 }

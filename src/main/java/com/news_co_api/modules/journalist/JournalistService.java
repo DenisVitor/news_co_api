@@ -3,10 +3,11 @@ package com.news_co_api.modules.journalist;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class JournalistService {
@@ -20,8 +21,11 @@ public class JournalistService {
         return journoRepo.findAll();
     }
 
+    @Transactional
     public JournalistEntity getJourno(UUID id) {
-        return journoRepo.findById(id).orElseThrow();
+        JournalistEntity journo = journoRepo.findById(id).orElseThrow();
+        Hibernate.initialize(journo.getNews_related());
+        return journo;
     }
 
     public JournalistEntity createJourno(JournalistDTO payload) {

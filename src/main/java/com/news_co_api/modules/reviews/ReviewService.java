@@ -65,11 +65,9 @@ public class ReviewService {
     }
 
     public void deleteReview(UUID id) throws NotFoundException {
-        
-        if (reviewRepo.existsById(id)) {
-            reviewRepo.deleteById(id);
-        } else {
+        if (reviewRepo.existsById(id) == false) {
             throw new NotFoundException();
         }
+        reviewRepo.deleteById(id);
     }
 }

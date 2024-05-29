@@ -60,13 +60,8 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> returnDeleteReview(@PathVariable UUID id) throws NotFoundException {
-        try {
+    public ResponseEntity<?> returnDeleteReview(@PathVariable UUID id) throws NotFoundException {    
             reviewServ.deleteReview(id);
             return ResponseEntity.status(204).body(null);
-
-        } catch (Exception e) {
-            return ResponseEntity.status(404).body("Review with this id not exists");
-        }
     }
 }

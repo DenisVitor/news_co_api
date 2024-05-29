@@ -3,9 +3,11 @@ package com.news_co_api.modules.news;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class NewsService {
@@ -15,14 +17,19 @@ public class NewsService {
     @Autowired
     private ModelMapper modMap;
 
+    @Transactional
     public List<NewsEntity> getAllNews() {
         return newsRepo.findAll();
     }
 
+    @Transactional
     public NewsEntity getNews(UUID id) {
-        return newsRepo.findById(id).orElseThrow();
+        NewsEntity news = newsRepo.findById(id).orElseThrow();
+        Hibernate.initialize(news.getReviews_related());
+        return news;
     }
 
+    @Transactional
     public NewsEntity createNews(NewsDTO payload) {
         return newsRepo.save(modMap.map(payload, NewsEntity.class));
     }
