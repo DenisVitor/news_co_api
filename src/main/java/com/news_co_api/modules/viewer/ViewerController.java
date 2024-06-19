@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +22,7 @@ public class ViewerController {
     @Autowired
     private ViewerService viewerServ;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/token")
     public ResponseEntity<?> returnViewer() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -34,6 +36,7 @@ public class ViewerController {
         return ResponseEntity.status(401).body(errorMsg);
     }
 
+    @CrossOrigin(origins = "*")
     @PatchMapping
     public ResponseEntity<?> returnUpdateViewer(@RequestBody ViewerDTO payload) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,6 +50,7 @@ public class ViewerController {
         return ResponseEntity.status(401).body(errorMsg);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping
     public ResponseEntity<?> returnDeleteViewer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

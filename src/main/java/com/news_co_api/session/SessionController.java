@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,8 @@ public class SessionController {
     @Autowired
     private PasswordEncoder encoder;
 
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody ViewerEntity payload) {
         ViewerEntity foundViewer = viewerRepo.findByUsername(payload.getUsername()).orElse(null);
@@ -61,6 +64,7 @@ public class SessionController {
         return ResponseEntity.status(201).body(viewer);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody ViewerEntity payload) throws Exception {
         var errorMsg = new HashMap<String, String>();

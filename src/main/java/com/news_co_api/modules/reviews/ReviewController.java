@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,16 +32,19 @@ public class ReviewController {
     @Autowired
     public ViewerRepository viewerServ;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/data")
     public ResponseEntity<?> returnByNewsAndUser(@RequestBody ReviewNewsUser payload) {
         return ResponseEntity.ok().body(reviewServ.getByIds(payload.getViewer_posted(), payload.getNews_related()));
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<?> returnReview(@PathVariable UUID id) {
         return ResponseEntity.ok().body(reviewServ.getReview(id));
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> returnCreateEntity(@RequestBody ReviewDTO payload) {
 
@@ -48,6 +52,7 @@ public class ReviewController {
     }
 
     @JsonView(ReturnList.ReviewReturn.class)
+    @CrossOrigin(origins = "*")
     @PatchMapping("/{id}")
     public ResponseEntity<?> returnPatchReview(@PathVariable UUID id, @RequestBody ReviewDTO payload) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,6 +64,7 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviewServ.updateReview(id, payload));
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> returnDeleteReview(@PathVariable UUID id) throws NotFoundException {    
             reviewServ.deleteReview(id);

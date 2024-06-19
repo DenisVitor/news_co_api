@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,26 +24,31 @@ public class JournalistController {
     private JournalistService journoService;
 
     @JsonView(ReturnList.JournalistList.class)
+    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<?> returnAll() {
         return ResponseEntity.ok().body(journoService.getAllJournos());
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<?> returnJourno(@PathVariable UUID id) {
         return ResponseEntity.ok().body(journoService.getJourno(id));
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> returnCreateJourno(@RequestBody JournalistDTO payload) {
         return ResponseEntity.status(201).body(journoService.createJourno(payload));
     }
 
+    @CrossOrigin(origins = "*")
     @PatchMapping("/{id}")
     public ResponseEntity<?> returnUpdateJourno(@PathVariable UUID id, @RequestBody JournalistDTO payload) {
         return ResponseEntity.ok().body(journoService.updateJourno(id, payload));
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> returnDeleteJourno(@PathVariable UUID id) {
         journoService.removeJourno(id);
