@@ -22,7 +22,7 @@ public class ViewerController {
     @Autowired
     private ViewerService viewerServ;
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping("/token")
     public ResponseEntity<?> returnViewer() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,7 +36,7 @@ public class ViewerController {
         return ResponseEntity.status(401).body(errorMsg);
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PatchMapping
     public ResponseEntity<?> returnUpdateViewer(@RequestBody ViewerDTO payload) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +50,7 @@ public class ViewerController {
         return ResponseEntity.status(401).body(errorMsg);
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @DeleteMapping
     public ResponseEntity<?> returnDeleteViewer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

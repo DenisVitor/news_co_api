@@ -24,31 +24,31 @@ public class JournalistController {
     private JournalistService journoService;
 
     @JsonView(ReturnList.JournalistList.class)
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping
     public ResponseEntity<?> returnAll() {
         return ResponseEntity.ok().body(journoService.getAllJournos());
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping("/{id}")
     public ResponseEntity<?> returnJourno(@PathVariable UUID id) {
         return ResponseEntity.ok().body(journoService.getJourno(id));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping
     public ResponseEntity<?> returnCreateJourno(@RequestBody JournalistDTO payload) {
         return ResponseEntity.status(201).body(journoService.createJourno(payload));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PatchMapping("/{id}")
     public ResponseEntity<?> returnUpdateJourno(@PathVariable UUID id, @RequestBody JournalistDTO payload) {
         return ResponseEntity.ok().body(journoService.updateJourno(id, payload));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> returnDeleteJourno(@PathVariable UUID id) {
         journoService.removeJourno(id);

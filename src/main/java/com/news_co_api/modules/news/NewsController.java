@@ -24,31 +24,31 @@ public class NewsController {
     private NewsService newsServ;
 
     @JsonView(ReturnList.NewsList.class)
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping
     public ResponseEntity<?> returnAll() {
         return ResponseEntity.ok().body(newsServ.getAllNews());
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping("/{id}")
     public ResponseEntity<?> returnNews(@PathVariable UUID id) {
         return ResponseEntity.ok().body(newsServ.getNews(id));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping
     public ResponseEntity<?> returnCreateNews(@RequestBody NewsDTO payload) {
         return ResponseEntity.status(201).body(newsServ.createNews(payload));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PatchMapping("/{id}")
     public ResponseEntity<?> returnUpdateNews(@PathVariable UUID id, @RequestBody NewsDTO payload) {
         return ResponseEntity.ok().body(newsServ.updateNews(id, payload));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> returnDeleteNews(@PathVariable UUID id) {
         newsServ.deleteNews(id);

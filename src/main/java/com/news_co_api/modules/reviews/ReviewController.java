@@ -32,19 +32,19 @@ public class ReviewController {
     @Autowired
     public ViewerRepository viewerServ;
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping("/data")
     public ResponseEntity<?> returnByNewsAndUser(@RequestBody ReviewNewsUser payload) {
         return ResponseEntity.ok().body(reviewServ.getByIds(payload.getViewer_posted(), payload.getNews_related()));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @GetMapping("/{id}")
     public ResponseEntity<?> returnReview(@PathVariable UUID id) {
         return ResponseEntity.ok().body(reviewServ.getReview(id));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping
     public ResponseEntity<?> returnCreateEntity(@RequestBody ReviewDTO payload) {
 
@@ -52,7 +52,7 @@ public class ReviewController {
     }
 
     @JsonView(ReturnList.ReviewReturn.class)
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PatchMapping("/{id}")
     public ResponseEntity<?> returnPatchReview(@PathVariable UUID id, @RequestBody ReviewDTO payload) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,7 +64,7 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviewServ.updateReview(id, payload));
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> returnDeleteReview(@PathVariable UUID id) throws NotFoundException {    
             reviewServ.deleteReview(id);

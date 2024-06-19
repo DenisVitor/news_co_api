@@ -36,7 +36,7 @@ public class SessionController {
     private PasswordEncoder encoder;
 
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody ViewerEntity payload) {
         ViewerEntity foundViewer = viewerRepo.findByUsername(payload.getUsername()).orElse(null);
@@ -64,7 +64,7 @@ public class SessionController {
         return ResponseEntity.status(201).body(viewer);
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://news-co-alpha.vercel.app")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody ViewerEntity payload) throws Exception {
         var errorMsg = new HashMap<String, String>();
